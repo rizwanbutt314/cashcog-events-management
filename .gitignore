@@ -5,3 +5,4 @@ venv3/
 # Files
 *.pyc
 backend/cem_api/cem_api/local_settings.py
+backend/cem_api/.coverage
