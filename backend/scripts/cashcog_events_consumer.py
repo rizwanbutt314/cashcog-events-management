@@ -58,13 +58,13 @@ def save_to_db(data):
 
 
 def main(stream_url):
-    stream_data = requests.get(stream_url, stream=True)
-
     object_to_tuple = lambda obj: (obj['uuid'], obj['description'], obj['created_at'], obj['amount'],
                                    obj['currency'], obj['employee']['uuid'],
                                    obj['employee']['first_name'], obj['employee']['last_name'], 'P')
 
     data_objects = list()
+    stream_data = requests.get(stream_url, stream=True)
+
     for data in stream_data.iter_lines():
         if data:
             try:

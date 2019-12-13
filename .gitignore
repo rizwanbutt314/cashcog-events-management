@@ -1,6 +1,7 @@
 # Directories
 .idea/
 venv3/
+frontend/cem_frontend/node_modules/
 
 # Files
 *.pyc
