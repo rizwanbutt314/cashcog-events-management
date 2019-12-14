@@ -1,12 +1,11 @@
 import * as React from 'react';
 import EventCard from '../../components/eventCard/EventCard';
 import './Dashboard.css';
-import { EventContext, EventContextProvider } from '../../context/EventsContext'
-import Pagination from "react-js-pagination";
-// require("bootstrap/less/bootstrap.less");
+import { EventContext, EventContextProvider } from '../../context/EventsContext';
+import Pagination from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
+
 import {
-    Container,
-    Row,
     Navbar,
     NavbarBrand,
     Nav,
@@ -14,11 +13,11 @@ import {
 } from 'reactstrap';
 
 const DashboardIndex: React.FC = () => {
-    const { events } = React.useContext(EventContext);
+    const { events, currentPage, setcurrentPage } = React.useContext(EventContext);
 
-    const handleChange = () => {
-        console.log("here...");
-    }
+    const handlePageChange = () => {
+        setcurrentPage(currentPage + 1);
+    };
 
     return (
         <>
@@ -31,29 +30,6 @@ const DashboardIndex: React.FC = () => {
                 </Nav>
             </Navbar>
 
-            {/*<Container fluid>*/}
-
-            {/*    <Row className="event-card-row">*/}
-            {/*        {events && events.results.map((event: TCardEvent, idx:number) =>*/}
-            {/*            <EventCard*/}
-            {/*                key={event.uuid}*/}
-            {/*                data={event}*/}
-            {/*            />,*/}
-            {/*        )}*/}
-            {/*    </Row>*/}
-
-            {/*    <Pagination*/}
-            {/*        activePage={2}*/}
-            {/*        itemsCountPerPage={10}*/}
-            {/*        totalItemsCount={450}*/}
-            {/*        pageRangeDisplayed={events ? events.num_pages : 1}*/}
-            {/*        onChange={handleChange}*/}
-            {/*        prevPageText="Prev"*/}
-            {/*        nextPageText="Next"*/}
-            {/*    />*/}
-
-            {/*</Container>*/}
-
             <div className="container">
                 {events && events.results.map((event: TCardEvent, idx:number) =>
                     <div className="column" key={event.uuid}>
@@ -62,6 +38,17 @@ const DashboardIndex: React.FC = () => {
                     />
                     </div>,
                 )}
+            </div>
+
+            <div className="pagination-container">
+                {
+                    events && <Pagination
+                        defaultPageSize={25}
+                        defaultCurrent={ events ? currentPage : 1}
+                        onChange={(e) => handlePageChange()}
+                        total={events ? events.count : 1}
+                    />
+                }
             </div>
 
         </>

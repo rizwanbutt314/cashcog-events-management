@@ -12,6 +12,11 @@
     margin: 0 auto;
 }
 
+.pagination-container{
+    display: inline-block;
+    margin: 0 auto;
+}
+
 /* Column */
 .column {
     flex-basis: percentage(1/3);

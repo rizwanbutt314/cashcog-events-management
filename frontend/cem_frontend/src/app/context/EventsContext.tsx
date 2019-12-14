@@ -6,6 +6,8 @@ interface IContextProps {
     events: any;
     actionClick: boolean;
     setActionClick: Function;
+    currentPage: number;
+    setcurrentPage: Function;
 }
 
 interface IProps {
@@ -14,7 +16,7 @@ interface IProps {
 
 interface EventsObject extends Object {
     count: number;
-    page: number;
+    num_pages: number;
     results: TCardEvent[];
 }
 
@@ -24,6 +26,7 @@ export const EventContext = React.createContext({} as IContextProps);
 export const EventContextProvider = ({children}:IProps) => {
     const [events, setEvents] = React.useState(null as unknown as EventsObject);
     const [actionClick, setActionClick] = React.useState(false);
+    const [currentPage, setcurrentPage] = React.useState(1);
     const {reqFetch} = React.useContext(AppContext);
 
     const getEvents = async () => {
@@ -36,14 +39,16 @@ export const EventContextProvider = ({children}:IProps) => {
         () => {
             getEvents();
         },
-        [actionClick],
+        [actionClick, currentPage],
     );
 
 
     const defaultContext = {
         events,
         actionClick,
-        setActionClick
+        setActionClick,
+        currentPage,
+        setcurrentPage
     };
 
     return (

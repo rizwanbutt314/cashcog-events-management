@@ -4,13 +4,7 @@ import {EventContext} from "../../context/EventsContext";
 import { AppContext } from '../../context/AppContext';
 import { API_BASE_URL } from '../../../settings';
 import {
-    Card,
-    CardBody,
-    CardTitle,
-    CardText,
-    CardFooter,
-    Button,
-    CardHeader
+    Button
 } from 'reactstrap';
 
 const EventCard = (props: any) => {
