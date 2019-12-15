@@ -8,6 +8,8 @@ interface IContextProps {
     setActionClick: Function;
     currentPage: number;
     setcurrentPage: Function;
+    filters: Object;
+    setFilters: Function;
 }
 
 interface IProps {
@@ -23,15 +25,45 @@ interface EventsObject extends Object {
 
 export const EventContext = React.createContext({} as IContextProps);
 
-export const EventContextProvider = ({children}:IProps) => {
-    const [events, setEvents] = React.useState(null as unknown as EventsObject);
+export const EventContextProvider = ({children}: IProps) => {
+    const [events, setEvents] = React.useState({count: 0, num_pages: 0, results: []} as EventsObject);
     const [actionClick, setActionClick] = React.useState(false);
     const [currentPage, setcurrentPage] = React.useState(1);
+    const [filters, setFilters] = React.useState({
+        ordering: '',
+        currency: '',
+        search: '',
+    });
     const {reqFetch} = React.useContext(AppContext);
 
+    const formatFilterparams = (allFilters: Object) => {
+        var params: string[] = [];
+
+        Object.entries(allFilters).map(([key, value]) => {
+            if (value)
+                params.push(`${key}=${value}`);
+        });
+
+        return params.join("&");
+    };
+
     const getEvents = async () => {
-        const fetchedEvents = await reqFetch(`${API_BASE_URL}/events/`);
+        var api_url = `${API_BASE_URL}/events?page_size=25&page=${currentPage}`;
+
+        const filter_params = formatFilterparams(filters);
+        if (filter_params)
+            api_url += `&${filter_params}`;
+
+        const fetchedEvents = await reqFetch(api_url);
         const jsonEvents = await fetchedEvents.json();
+        try {
+            if (jsonEvents.detail === 'Invalid page.') {
+                setcurrentPage(1);
+            }
+
+        } catch (e) {
+            //
+        }
         setEvents(jsonEvents);
     };
 
@@ -39,7 +71,7 @@ export const EventContextProvider = ({children}:IProps) => {
         () => {
             getEvents();
         },
-        [actionClick, currentPage],
+        [actionClick, filters],
     );
 
 
@@ -48,7 +80,9 @@ export const EventContextProvider = ({children}:IProps) => {
         actionClick,
         setActionClick,
         currentPage,
-        setcurrentPage
+        setcurrentPage,
+        filters,
+        setFilters
     };
 
     return (
