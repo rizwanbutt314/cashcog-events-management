@@ -120,7 +120,7 @@ const DashboardIndex: React.FC = () => {
                                    onChange={searchChange}/>
                         </NavItem>
                     </Nav>
-                    <ButtonToggle color="primary" onClick={(e) => clearFilters()}>Clear Filters</ButtonToggle>
+                    <ButtonToggle color="primary" className="clear-filters" onClick={(e) => clearFilters()}>Clear Filters</ButtonToggle>
                 </Collapse>
             </Navbar>
 

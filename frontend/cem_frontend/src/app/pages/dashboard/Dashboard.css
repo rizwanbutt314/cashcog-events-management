@@ -42,3 +42,15 @@
         }
     }
 }
+
+@media (max-width: 900px) {
+    .clear-filters{
+        margin-top: 10px !important;
+    }
+}
+@media (max-width: 600px) {
+
+    .clear-filters{
+        margin-top: 10px !important;
+    }
+}
