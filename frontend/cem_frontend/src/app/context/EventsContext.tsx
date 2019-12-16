@@ -60,18 +60,21 @@ export const EventContextProvider = ({children}: IProps) => {
             if (jsonEvents.detail === 'Invalid page.') {
                 setcurrentPage(1);
             }
+            else{
+                setEvents(jsonEvents);
+            }
 
         } catch (e) {
             //
         }
-        setEvents(jsonEvents);
+
     };
 
     React.useEffect(
         () => {
             getEvents();
         },
-        [actionClick, filters],
+        [actionClick, currentPage, filters],
     );
 
 

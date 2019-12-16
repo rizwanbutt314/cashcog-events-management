@@ -14,6 +14,15 @@
     margin: 0 auto;
 }
 
+.rc-pagination-item-active {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.rc-pagination-item:hover {
+    border-color: #28a745 !important;
+}
+
 /* Column */
 .column {
     flex-basis: percentage(1/3);

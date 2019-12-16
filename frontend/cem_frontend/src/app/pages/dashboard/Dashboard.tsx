@@ -3,6 +3,7 @@ import EventCard from '../../components/eventCard/EventCard';
 import './Dashboard.css';
 import {EventContext, EventContextProvider} from '../../context/EventsContext';
 import Pagination from 'rc-pagination';
+import localeInfo from 'rc-pagination/lib/locale/en_US';
 import 'rc-pagination/assets/index.css';
 import {
     Navbar,
@@ -142,6 +143,7 @@ const DashboardIndex: React.FC = () => {
                         defaultCurrent={events ? currentPage : 1}
                         onChange={(cp) => handlePageChange(cp)}
                         total={events ? events.count : 1}
+                        locale={localeInfo}
                     />
                 }
             </div>

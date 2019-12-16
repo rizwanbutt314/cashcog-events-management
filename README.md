@@ -18,3 +18,5 @@ as follow:
   
 **Note:** Both parts contain the README file which explains how to
 setup/run each part.
+
+![Alt text](./cashcog-board.png?raw=true "Cashcog Events Management Sys.")
